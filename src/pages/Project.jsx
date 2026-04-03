@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import driveuImg from '../assets/driveu.png'
 import blockguardImg from '../assets/blockguard.jpg'
+import mcpImg from '../assets/mcp.png'
 import reborn1Img from '../assets/reborn1.png'
 import reborn2Img from '../assets/reborn2.png'
 
@@ -73,6 +74,43 @@ const PROJECTS = [
       'KUIT 5기 데모데이 최우수상 수상',
       '실사용 데이터 기반 AI 분석 정확도 향상 및 완성도 높은 프로토타입 구축',
       '[과학기술정보통신부] 2025 민관협력 지원 플랫폼 활용 디지털 사회혁신 서비스 개발·아이디어 공모전 본선 진출',
+    ],
+  },
+  {
+    title: 'MCP 기반 프론트엔드 개발·테스트 자동화',
+    subtitle: '2019 → 2026 우리은행 메인 페이지 UX·UI 전면 리뉴얼 및 MCP 기반 개발 자동화',
+    period: '2026.03 — 2026.03',
+    tags: ['React', 'JavaScript', 'Vite', 'Tailwind CSS'],
+    team: 'FrontEnd 2명(본인 포함) / 서버 구축 2명',
+    github: 'https://github.com/Woori-Pizza/tech-seminar-mcp',
+    summary: '2019년에 제작된 우리은행 메인 페이지를 2026년 기준 UX·UI·개발 방식으로 전면 리뉴얼한 프로젝트입니다. MCP(Model Context Protocol)를 활용해 디자인 → 코드 → 리뷰 → 테스트까지의 전 과정을 자동화한 협업 구조를 도입했습니다.',
+    images: [mcpImg],
+    roles: [
+      {
+        title: 'UI/UX 리뉴얼 및 컴포넌트 기반 구조 설계',
+        desc: '금융 서비스 특성을 고려한 정보 위계를 재정의하고, 주요 액션 중심의 사용자 흐름을 설계했습니다. 버튼, 카드, 레이아웃 단위로 컴포넌트를 분리하여 유지보수성과 확장성을 강화했습니다. 불필요한 시각 요소를 제거하고 디자인 시스템 기반으로 구현했습니다.',
+      },
+      {
+        title: 'Figma MCP를 활용한 디자인 → 코드 자동화',
+        desc: 'Figma MCP를 통해 색상, 레이아웃, 컴포넌트 구조 등 디자인 스펙을 자동 추출했습니다. 추출된 스펙을 AI가 직접 해석해 코드를 생성함으로써 구현 시간을 수 분에서 1분 이내로 단축했습니다. 디자인 변경 사항을 코드에 빠르게 반영하여 시각적 불일치 문제를 최소화했습니다.',
+      },
+      {
+        title: 'Storybook MCP를 활용한 컴포넌트 중복 탐지',
+        desc: 'Storybook MCP로 버튼 컴포넌트 props 전체를 탐색하여 기능은 같고 이름만 다른 props를 자동으로 식별했습니다. GitHub MCP와 연계해 해당 컴포넌트의 작성자 및 변경 히스토리를 분석하고, Slack MCP로 담당자 변경 여부까지 확인했습니다. props 설계 일관성을 확보하고 레거시 코드의 맥락을 빠르게 파악했습니다.',
+      },
+      {
+        title: 'GitHub MCP를 활용한 PR 리뷰 자동화',
+        desc: 'GitHub MCP로 PR 단위 변경 내용을 자동 요약하고 UI 관련 코드 흐름을 정리했습니다. Figma MCP로 추출한 디자인 스펙과 구현 코드를 자동 비교하여 불일치 지점에 코드 리뷰 코멘트를 자동 생성했습니다.',
+      },
+      {
+        title: 'Playwright MCP를 활용한 UI 테스트 자동화',
+        desc: '자연어 기반으로 UI 테스트 시나리오를 작성하고 Playwright MCP로 자동 실행했습니다. 버튼 클릭 → API 호출 → 응답 스키마 검증까지의 흐름을 자동화하여 프론트엔드·백엔드 오류 원인을 빠르게 식별했습니다.',
+      },
+    ],
+    achievements: [
+      '디자인 → 코드 구현 시간 대폭 단축 (수 분 → 1분 이내)',
+      'MCP 기반 자동화로 디자인·코드·히스토리·테스트를 하나의 Context로 연결하여 불필요한 커뮤니케이션 비용 절감',
+      '컴포넌트 기반 구조 도입으로 유지보수성 및 확장성 강화',
     ],
   },
   {
