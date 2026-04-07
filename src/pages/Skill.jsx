@@ -31,7 +31,7 @@ export default function Skill() {
           <h1 className="font-['Instrument_Serif',serif] text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
             기술 스택
           </h1>
-          <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Tech Stack</p>
+          <p className="text-[15px] text-neutral-600 tracking-[-0.2px]">Tech Stack</p>
         </div>
 
         {/* Skill Groups */}
@@ -45,7 +45,7 @@ export default function Skill() {
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className="px-3 py-1.5 border border-neutral-200 text-[13px] text-neutral-700 tracking-[-0.1px] bg-white"
+                    className="px-3 py-1.5 border border-neutral-200 text-[13px] text-neutral-700 tracking-[-0.1px] bg-white cursor-default transition-all duration-150 hover:border-neutral-200 hover:text-neutral-900 hover:bg-neutral-50 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
                     style={{ borderRadius: '3px' }}
                   >
                     {item}
