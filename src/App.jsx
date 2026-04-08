@@ -41,7 +41,7 @@ function SearchPage() {
     setQuery('')
     setLoading(true)
     try {
-      const res = await fetch('http://localhost:8080/api/v1/rag/query', {
+      const res = await fetch('http://3.36.59.80:8080/api/v1/rag/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: text, maxResults: 3, model: 'gpt-3.5-turbo' }),
