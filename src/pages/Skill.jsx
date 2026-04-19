@@ -1,22 +1,22 @@
 const SKILL_GROUPS = [
   {
-    category: '언어',
-    items: ['Java', 'Python'],
+    category: 'Languages',
+    items: ['Java', 'Python', 'JavaScript', 'Kotlin'],
   },
   {
-    category: '백엔드',
-    items: ['Spring Boot', 'JPA', 'MySQL'],
+    category: 'Backend',
+    items: ['Spring Boot', 'MySQL', 'FastAPI', 'Node.js'],
   },
   {
-    category: '클라우드 & 인프라',
-    items: ['AWS EC2', 'AWS RDS', 'AWS S3', 'Docker'],
+    category: 'Frontend',
+    items: ['React', 'Next.js'],
   },
   {
-    category: 'CI/CD',
-    items: ['GitHub Actions'],
+    category: 'Cloud & Infra',
+    items: ['AWS EC2', 'AWS RDS', 'AWS S3', 'Docker', 'Nginx', 'GitHub Actions', 'Jenkins'],
   },
   {
-    category: '도구',
+    category: 'Tools',
     items: ['IntelliJ IDEA', 'Visual Studio Code', 'MySQL Workbench', 'Git / GitHub', 'Notion'],
   },
 ]
