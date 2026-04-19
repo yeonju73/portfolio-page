@@ -79,7 +79,7 @@ const PROJECTS = [
   {
     title: 'MCP 기반 프론트엔드 개발·테스트 자동화',
     subtitle: '2019 → 2026 우리은행 메인 페이지 UX·UI 전면 리뉴얼 및 MCP 기반 개발 자동화',
-    period: '2026.03 — 2026.03',
+    period: '2026.01 — 2026.01',
     tags: ['React', 'JavaScript', 'Vite', 'Tailwind CSS'],
     team: 'FrontEnd 2명(본인 포함) / 서버 구축 2명',
     github: 'https://github.com/Woori-Pizza/tech-seminar-mcp',
@@ -185,17 +185,17 @@ function ProjectModal({ project, onClose }) {
               src={project.images[0]}
               alt={project.title}
               className="w-full object-cover"
-              style={{ borderRadius: '4px', maxHeight: '320px' }}
+              style={{ borderRadius: '4px', maxHeight: '500px' }}
             />
           ) : (
-            <div className="grid grid-cols-2 gap-3 items-start">
+            <div className="flex justify-center gap-2 items-start">
               {project.images.map((img, i) => (
                 <img
                   key={i}
                   src={img}
                   alt={`${project.title} ${i + 1}`}
-                  className="w-full h-auto"
-                  style={{ borderRadius: '4px' }}
+                  className="h-auto object-contain"
+                  style={{ borderRadius: '4px', maxHeight: '350px', maxWidth: '45%' }}
                 />
               ))}
             </div>
@@ -310,13 +310,14 @@ export default function Project() {
                   style={{ height: '220px' }}
                 />
               ) : (
-                <div className="grid grid-cols-2 bg-white" style={{ height: '220px' }}>
+                <div className="grid grid-cols-2 overflow-hidden flex-shrink-0" style={{ height: '220px' }}>
                   {project.images.map((img, i) => (
                     <img
                       key={i}
                       src={img}
                       alt={`${project.title} ${i + 1}`}
-                      className="w-full h-full object-contain"
+                      className="w-full object-cover"
+                      style={{ height: '220px' }}
                     />
                   ))}
                 </div>
