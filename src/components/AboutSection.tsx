@@ -17,7 +17,7 @@ export default function AboutSection() {
               박연주입니다.
             </h1>
             <p className="text-[16px] text-neutral-500 mb-10 tracking-[-0.2px] leading-relaxed">
-              장애를 선제 대응하고 최선의 방법을 찾아나갑니다.
+              장애를 선제적으로 예방하고, 주어진 환경에서 늘 최선의 아키텍처를 찾아나갑니다.
             </p>
             
             {/* Buttons */}

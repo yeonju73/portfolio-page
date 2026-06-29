@@ -176,10 +176,9 @@ export default function ProjectSection() {
 
         {/* Header */}
         <div className="mb-14">
-          <h1 className="font-bold text-[36px] leading-[1.15] tracking-[-1px] text-neutral-900 mb-3">
-            프로젝트
+          <h1 className="font-bold text-[36px] leading-[1.15] tracking-[-1px] text-neutral-900">
+            Projects
           </h1>
-          <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Projects</p>
         </div>
 
         {/* Grid */}

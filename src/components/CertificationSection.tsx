@@ -53,10 +53,9 @@ export default function CertificationSection() {
 
         {/* Header */}
         <div className="mb-14">
-          <h1 className="font-bold text-[36px] leading-[1.15] tracking-[-1px] text-neutral-900 mb-3">
-            자격증 및 수상
+          <h1 className="font-bold text-[36px] leading-[1.15] tracking-[-1px] text-neutral-900">
+            Certifications & Awards
           </h1>
-          <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Certification & Awards</p>
         </div>
 
         {/* 자격증 */}

@@ -8,9 +8,9 @@ interface NavTab {
 
 const NAV_TABS: NavTab[] = [
   { id: 'about', label: 'About', href: '#about' },
-  { id: 'project', label: 'Project', href: '#project' },
-  { id: 'experience', label: 'Experience', href: '#experience' },
-  { id: 'certification', label: 'Certification', href: '#certification' },
+  { id: 'project', label: 'Projects', href: '#project' },
+  { id: 'experience', label: 'Experiences', href: '#experience' },
+  { id: 'certification', label: 'Certifications', href: '#certification' },
 ];
 
 interface NavigationProps {
@@ -22,7 +22,7 @@ export default function Navigation({ activeSection }: NavigationProps) {
     <nav
       className="sticky top-0 z-20 bg-white/80 border-b border-neutral-100 backdrop-blur-md"
     >
-      <div className="max-w-[1200px] mx-auto px-6 flex items-center gap-0">
+      <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-end gap-0">
         {NAV_TABS.map((tab) => {
           const isActive = activeSection === tab.id;
           return (

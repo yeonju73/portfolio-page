@@ -1,5 +1,38 @@
 [
   {
+    "title": "bankK",
+    "subtitle": "BaaS를 통한 은행대리업 중계 서비스",
+    "period": "2026.04 — 2026.06",
+    "tags": ["React", "JavaScript", "Vite", "Tailwind CSS", "Spring", "Java", "Mybatis", "MySQL", "AWS EC2", "AWS S3", "Gemini API", "Qdrant"],
+    "team": "FullStack 4명(본인 포함) / Infra Engineer 1명",
+    "github": "https://github.com/Woori-Fisan/bankK",
+    "summary": "중계 플랫폼과 BaaS의 연결을 통해 ‘은행-대리 기관’의 망 개설 비용을 절약하며, 서비스 발생 시 발생하는 문제에 대한 은행의 면책 사유 제공 및 향후 은행 대리 업 정상 운영 시 유연한 대리 기관 및 은행 확장성 수요를 충족합니다. 우리 FIS 아카데미 최종 프로젝트 우수상을 수상했습니다.",
+    "images": ["/assets/bankk.png"],
+    "roles": [
+      {
+        "title": "중복 요청 방지를 위한 멱등성 보장",
+        "desc": "요청 헤더에 고유한 멱등키를 도입하고 Redis를 활용하여 동일 키에 대해 일정 시간 내 중복 요청 시 기존 처리 결과를 반환하는 멱등성 로직을 구축했습니다."
+      },
+      {
+        "title": "로깅 및 모니터링 시스템 구축 & 레이어별 유실 방지 설계",
+        "desc": "Fluent Bit-Loki-Grafana 기반 로깅/모니터링 파이프라인을 구축하고, Spring AOP를 활용해 API 통신 로그를 자동화했습니다. JWT 필터에서 traceId를 추출해 MDC에 적재하여 단일 요청 흐름을 추적하게 했으며, Fluent Bit의 디스크 버퍼링과 Loki(전체)/WAS(비즈니스) 이중 분기 및 S3 연결을 통해 스토리지 비용을 절약했습니다. LinkedBlockingQueue 기반 배치 INSERT 및 INSERT IGNORE를 통해 Fluent Bit 재전송 시 로그 저장 멱등성을 보장했습니다."
+      },
+      {
+        "title": "mTLS, JWS, 디지털 봉투 기법 기반 E2E 암호화 구현",
+        "desc": "은행서버와 플랫폼 서버와의 상호 인증서 검증을 바탕으로 하는 mTLS 통신을 구현했습니다. JWS 바디 서명으로 요청 무결성을 보장하고, 프론트엔드의 대칭키를 서버 공개키로 암호화하는 디지털 봉투 기법 및 단방향 해시 Blind Index를 통해 데이터 조회 시 풀테이블 스캔을 방지했습니다."
+      },
+      {
+        "title": "Saga 패턴을 적용한 타행이체 API 원자성 보장",
+        "desc": "출금 은행에서 이체 제어를 담당하여 당행 출금 후 타행 입금 API를 호출하도록 설계했습니다. 타행 입금 실패 시 보상 트랜잭션을 수행하며 타행 미응답 시 원장 상태를 pending으로 유지합니다. 동기식 블로킹 타행 완료 여부 확인 방식을 WebClient 기반 비동기 폴링 및 전용 스레드풀 백그라운드 구조로 개선해 사용자 경험을 크게 개선했습니다."
+      }
+    ],
+    "achievements": [
+      "우리 FIS 아카데미 최종 프로젝트 우수상 수상",
+      "Redis 및 멱등키 설계를 통한 API 요청 중복 방지 및 처리 무결성 확보",
+      "E2E 암호화(mTLS/JWS/디지털 봉투) 설계로 보안성이 극대화된 은행 연동 인프라 구축"
+    ]
+  },
+  {
     "title": "DriveU",
     "subtitle": "학부생을 위한 생성형 AI 기반 클라우드 아카이빙 서비스",
     "period": "2025.03 — 2025.12",
