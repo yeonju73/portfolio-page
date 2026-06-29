@@ -1,23 +1,31 @@
-import profileImg from '../assets/profile.jpeg'
+import Image from 'next/image';
+import profileImg from '../../assets/profile.jpeg';
+import { Metadata } from 'next';
 
-export default function About() {
+export const metadata: Metadata = {
+  title: 'About | 박연주',
+  description: '백엔드 개발자 박연주를 소개합니다.',
+};
+
+export default function AboutPage() {
   return (
-    <div className="flex flex-col items-center px-5 py-16 font-['DM_Sans',sans-serif]">
+    <div className="flex flex-col items-center px-5 py-16 font-sans">
       <div className="w-full max-w-160">
 
         {/* Header */}
         <div className="flex items-end justify-between mb-14 gap-6">
           <div>
-            <h1 className="font-['Instrument_Serif',serif] text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
+            <h1 className="font-serif text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
               박연주
             </h1>
             <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Backend Developer</p>
           </div>
-          <img
+          <Image
             src={profileImg}
             alt="박연주 프로필"
             className="w-36 h-44 object-cover object-top shrink-0"
-            style={{ borderRadius: '4px', imageRendering: 'high-quality' }}
+            style={{ borderRadius: '4px' }}
+            priority
           />
         </div>
 
@@ -80,5 +88,5 @@ export default function About() {
 
       </div>
     </div>
-  )
+  );
 }

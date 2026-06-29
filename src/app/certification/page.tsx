@@ -1,9 +1,28 @@
-const CERTIFICATIONS = [
+import { Metadata } from 'next';
+
+interface CertificationItem {
+  name: string;
+  date: string;
+}
+
+interface AwardItem {
+  name: string;
+  org: string;
+  date: string;
+}
+
+interface ContestItem {
+  name: string;
+  result: string;
+  project: string;
+}
+
+const CERTIFICATIONS: CertificationItem[] = [
   { name: '정보처리기사', date: '2025.12.24' },
   { name: 'SQLD', date: '2025.12.12' },
 ]
 
-const AWARDS = [
+const AWARDS: AwardItem[] = [
   {
     name: 'KUIT 5기 데모데이 최우수상',
     org: '건국대학교 교내 기획개발 동아리 KUIT',
@@ -16,7 +35,7 @@ const AWARDS = [
   },
 ]
 
-const CONTESTS = [
+const CONTESTS: ContestItem[] = [
   {
     name: '[과학기술정보통신부] 2025 민관협력 지원 플랫폼 활용 디지털 사회혁신 서비스 개발·아이디어 공모전',
     result: '본선 진출',
@@ -29,14 +48,19 @@ const CONTESTS = [
   },
 ]
 
-export default function Certification() {
+export const metadata: Metadata = {
+  title: 'Certification & Awards | 박연주',
+  description: '백엔드 개발자 박연주의 자격증 및 수상 이력입니다.',
+};
+
+export default function CertificationPage() {
   return (
-    <div className="flex flex-col items-center px-5 py-16 font-['DM_Sans',sans-serif]">
+    <div className="flex flex-col items-center px-5 py-16 font-sans">
       <div className="w-full max-w-160">
 
         {/* Header */}
         <div className="mb-14">
-          <h1 className="font-['Instrument_Serif',serif] text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
+          <h1 className="font-serif text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
             자격증 및 수상
           </h1>
           <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Certification & Awards</p>

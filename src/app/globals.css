@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --font-dm-sans: var(--font-dm-sans);
+  --font-instrument-serif: var(--font-instrument-serif);
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-dm-sans), sans-serif;
+}

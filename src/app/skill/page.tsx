@@ -1,4 +1,11 @@
-const SKILL_GROUPS = [
+import { Metadata } from 'next';
+
+interface SkillGroup {
+  category: string;
+  items: string[];
+}
+
+const SKILL_GROUPS: SkillGroup[] = [
   {
     category: 'Languages',
     items: ['Java', 'Python', 'JavaScript', 'Kotlin'],
@@ -21,14 +28,19 @@ const SKILL_GROUPS = [
   },
 ]
 
-export default function Skill() {
+export const metadata: Metadata = {
+  title: 'Skills | 박연주',
+  description: '백엔드 개발자 박연주의 기술 스택입니다.',
+};
+
+export default function SkillPage() {
   return (
-    <div className="flex flex-col items-center px-5 py-16 font-['DM_Sans',sans-serif]">
+    <div className="flex flex-col items-center px-5 py-16 font-sans">
       <div className="w-full max-w-160">
 
         {/* Header */}
         <div className="mb-14">
-          <h1 className="font-['Instrument_Serif',serif] text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
+          <h1 className="font-serif text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
             기술 스택
           </h1>
           <p className="text-[15px] text-neutral-600 tracking-[-0.2px]">Tech Stack</p>

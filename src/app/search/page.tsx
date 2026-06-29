@@ -1,33 +1,44 @@
+"use client";
+
 import { useState, useRef, useEffect } from 'react'
-import './App.css'
-import About from './pages/About'
-import Skill from './pages/Skill'
-import Project from './pages/Project'
-import Experience from './pages/Experience'
-import Certification from './pages/Certification'
 
-const NAV_TABS = [
-  { id: 'about', label: 'About' },
-  { id: 'skill', label: 'Skill' },
-  { id: 'project', label: 'Project' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'certification', label: 'Certification' },
-  { id: 'search', label: 'Search' },
-]
+interface Message {
+  role: 'user' | 'assistant';
+  text: string;
+}
 
-const suggestedQuestions = [
+interface Question {
+  text: string;
+  icon: string;
+}
+
+interface RelevantDocument {
+  metadata?: {
+    file?: string;
+    [key: string]: any;
+  };
+}
+
+interface RagResponse {
+  data?: {
+    answer?: string;
+    relevantDocuments?: RelevantDocument[];
+  };
+}
+
+const suggestedQuestions: Question[] = [
   { text: '박연주의 프로젝트 내용에 대해 설명해줘.', icon: '☁' },
   { text: '박연주의 수상 내용에 대해 설명해줘.', icon: '⚡' },
   { text: '박연주의 자격증 내용에 대해 설명해줘.', icon: '📄' },
   { text: '박연주의 동아리 경험 내용에 대해 설명해줘.', icon: '🍝' },
 ]
 
-function SearchPage() {
+export default function SearchPage() {
   const [query, setQuery] = useState('')
   const [isFocused, setIsFocused] = useState(false)
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState<Message[]>([])
   const [loading, setLoading] = useState(false)
-  const messagesEndRef = useRef(null)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -35,7 +46,7 @@ function SearchPage() {
     }
   }, [messages, loading])
 
-  const sendQuery = async (text) => {
+  const sendQuery = async (text: string) => {
     if (!text.trim() || loading) return
     setMessages((prev) => [...prev, { role: 'user', text }])
     setQuery('')
@@ -46,7 +57,7 @@ function SearchPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: text, maxResults: 3, model: 'gpt-3.5-turbo' }),
       })
-      const json = await res.json()
+      const json: RagResponse = await res.json()
       let answer = json?.data?.answer ?? '응답을 가져오지 못했습니다.'
       const docs = json?.data?.relevantDocuments ?? []
       answer = answer.replace(/\[(\d+)\] Unknown file/g, (_, n) => {
@@ -61,7 +72,7 @@ function SearchPage() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     sendQuery(query.trim())
   }
@@ -69,10 +80,10 @@ function SearchPage() {
   const hasChatStarted = messages.length > 0 || loading
 
   return (
-    <div className="flex flex-col items-center px-5 py-16 font-['DM_Sans',sans-serif]">
+    <div className="flex flex-col items-center px-5 py-16 font-sans">
       <div className="w-full max-w-[640px] flex flex-col items-center">
         {/* Title */}
-        <h1 className="font-['Instrument_Serif',serif] text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 mb-2 font-normal">
+        <h1 className="font-serif text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 mb-2 font-normal">
           무엇이든 물어보세요
         </h1>
         <p className="text-neutral-400 text-[15px] mb-10 tracking-[-0.2px]">
@@ -171,6 +182,7 @@ function SearchPage() {
             {suggestedQuestions.map((item, i) => (
               <button
                 key={i}
+                type="button"
                 onClick={() => sendQuery(item.text)}
                 className="group flex items-center gap-2.5 text-left px-3 py-2.5 border border-neutral-100 bg-white hover:border-neutral-300 hover:bg-neutral-50 transition-all duration-150 cursor-pointer"
                 style={{ borderRadius: '3px' }}
@@ -193,62 +205,6 @@ function SearchPage() {
           </div>
         )}
       </div>
-    </div>
-  )
-}
-
-const PAGE_MAP = {
-  about: <About />,
-  skill: <Skill />,
-  project: <Project />,
-  experience: <Experience />,
-  certification: <Certification />,
-  search: <SearchPage />,
-}
-
-export default function App() {
-  const [activeTab, setActiveTab] = useState('search')
-
-  return (
-    <div className="min-h-screen bg-white font-['DM_Sans',sans-serif]">
-      {/* Subtle grid background */}
-      <div
-        className="fixed inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(0,0,0,0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0,0,0,0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: '48px 48px',
-        }}
-      />
-
-      {/* Navigation */}
-      <nav
-        className="sticky top-0 z-20 bg-white border-b border-neutral-100"
-        style={{ backdropFilter: 'blur(8px)' }}
-      >
-        <div className="max-w-[900px] mx-auto px-6 flex items-center gap-0">
-          {NAV_TABS.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-4 text-[13px] font-medium tracking-[-0.1px] transition-colors duration-150 border-b-2 -mb-px ${
-                activeTab === tab.id
-                  ? 'border-neutral-900 text-neutral-900'
-                  : 'border-transparent text-neutral-400 hover:text-neutral-600'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      </nav>
-
-      {/* Page Content */}
-      <main className="relative z-10">
-        {PAGE_MAP[activeTab]}
-      </main>
     </div>
   )
 }

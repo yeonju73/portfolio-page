@@ -1,11 +1,32 @@
-import { useState } from 'react'
-import driveuImg from '../assets/driveu.png'
-import blockguardImg from '../assets/blockguard.jpg'
-import mcpImg from '../assets/mcp.png'
-import reborn1Img from '../assets/reborn1.png'
-import reborn2Img from '../assets/reborn2.png'
+"use client";
 
-const PROJECTS = [
+import { useState } from 'react'
+import Image, { StaticImageData } from 'next/image'
+import driveuImg from '../../assets/driveu.png'
+import blockguardImg from '../../assets/blockguard.jpg'
+import mcpImg from '../../assets/mcp.png'
+import reborn1Img from '../../assets/reborn1.png'
+import reborn2Img from '../../assets/reborn2.png'
+
+interface ProjectRole {
+  title: string;
+  desc: string;
+}
+
+interface ProjectItem {
+  title: string;
+  subtitle: string;
+  period: string;
+  tags: string[];
+  team: string;
+  github: string;
+  summary: string;
+  images: StaticImageData[];
+  roles: ProjectRole[];
+  achievements: string[];
+}
+
+const PROJECTS: ProjectItem[] = [
   {
     title: 'DriveU',
     subtitle: '학부생을 위한 생성형 AI 기반 클라우드 아카이빙 서비스',
@@ -143,7 +164,12 @@ const PROJECTS = [
   },
 ]
 
-function ProjectModal({ project, onClose }) {
+interface ProjectModalProps {
+  project: ProjectItem;
+  onClose: () => void;
+}
+
+function ProjectModal({ project, onClose }: ProjectModalProps) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center px-4"
@@ -161,7 +187,7 @@ function ProjectModal({ project, onClose }) {
         {/* Modal Header */}
         <div className="sticky top-0 bg-white border-b border-neutral-100 px-8 py-5 flex items-start justify-between">
           <div>
-            <h2 className="font-['Instrument_Serif',serif] text-[28px] leading-tight tracking-[-0.8px] text-neutral-900 font-normal">
+            <h2 className="font-serif text-[28px] leading-tight tracking-[-0.8px] text-neutral-900 font-normal">
               {project.title}
             </h2>
             <p className="text-[13px] text-neutral-400 mt-1 tracking-[-0.1px]">{project.period}</p>
@@ -181,16 +207,16 @@ function ProjectModal({ project, onClose }) {
 
           {/* Images */}
           {project.images.length === 1 ? (
-            <img
+            <Image
               src={project.images[0]}
               alt={project.title}
-              className="w-full object-cover"
+              className="w-full object-cover h-auto"
               style={{ borderRadius: '4px', maxHeight: '500px' }}
             />
           ) : (
             <div className="flex justify-center gap-2 items-start">
               {project.images.map((img, i) => (
-                <img
+                <Image
                   key={i}
                   src={img}
                   alt={`${project.title} ${i + 1}`}
@@ -277,16 +303,16 @@ function ProjectModal({ project, onClose }) {
   )
 }
 
-export default function Project() {
-  const [selected, setSelected] = useState(null)
+export default function ProjectPage() {
+  const [selected, setSelected] = useState<ProjectItem | null>(null)
 
   return (
-    <div className="flex flex-col items-center px-5 py-16 font-['DM_Sans',sans-serif]">
+    <div className="flex flex-col items-center px-5 py-16 font-sans">
       <div className="w-full max-w-160">
 
         {/* Header */}
         <div className="mb-14">
-          <h1 className="font-['Instrument_Serif',serif] text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
+          <h1 className="font-serif text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
             프로젝트
           </h1>
           <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Projects</p>
@@ -303,7 +329,7 @@ export default function Project() {
             >
               {/* Thumbnail */}
               {project.images.length === 1 ? (
-                <img
+                <Image
                   src={project.images[0]}
                   alt={project.title}
                   className="w-full object-cover"
@@ -312,7 +338,7 @@ export default function Project() {
               ) : (
                 <div className="grid grid-cols-2 overflow-hidden flex-shrink-0" style={{ height: '220px' }}>
                   {project.images.map((img, i) => (
-                    <img
+                    <Image
                       key={i}
                       src={img}
                       alt={`${project.title} ${i + 1}`}
@@ -327,7 +353,7 @@ export default function Project() {
               <div className="flex flex-col gap-3 p-5">
                 <div>
                   <p className="text-[11px] text-neutral-400 tracking-[-0.1px] mb-1.5">{project.period}</p>
-                  <h3 className="font-['Instrument_Serif',serif] text-[22px] leading-tight tracking-[-0.5px] text-neutral-900 font-normal mb-1">
+                  <h3 className="font-serif text-[22px] leading-tight tracking-[-0.5px] text-neutral-900 font-normal mb-1">
                     {project.title}
                   </h3>
                   <p className="text-[13px] text-neutral-500 leading-snug tracking-[-0.1px]">{project.subtitle}</p>

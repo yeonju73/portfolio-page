@@ -1,4 +1,13 @@
-const EXPERIENCES = [
+import { Metadata } from 'next';
+
+interface ExperienceItem {
+  org: string;
+  role: string;
+  period: string;
+  bullets: string[];
+}
+
+const EXPERIENCES: ExperienceItem[] = [
   {
     org: '우리FIS아카데미 6기',
     role: '클라우드 서비스 개발과정',
@@ -45,14 +54,19 @@ const EXPERIENCES = [
   },
 ]
 
-export default function Experience() {
+export const metadata: Metadata = {
+  title: 'Experience | 박연주',
+  description: '백엔드 개발자 박연주의 활동 및 경험 사항입니다.',
+};
+
+export default function ExperiencePage() {
   return (
-    <div className="flex flex-col items-center px-5 py-16 font-['DM_Sans',sans-serif]">
+    <div className="flex flex-col items-center px-5 py-16 font-sans">
       <div className="w-full max-w-160">
 
         {/* Header */}
         <div className="mb-14">
-          <h1 className="font-['Instrument_Serif',serif] text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
+          <h1 className="font-serif text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
             활동 및 경험
           </h1>
           <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Experience</p>
@@ -79,7 +93,7 @@ export default function Experience() {
               {/* Right: content */}
               <div className={`flex-1 pb-12 ${i === EXPERIENCES.length - 1 ? 'pb-0' : ''}`}>
                 <div className="mb-3">
-                  <h3 className="font-['Instrument_Serif',serif] text-[22px] leading-tight tracking-[-0.5px] text-neutral-900 font-normal">
+                  <h3 className="font-serif text-[22px] leading-tight tracking-[-0.5px] text-neutral-900 font-normal">
                     {exp.org}
                   </h3>
                   <p className="text-[13px] text-neutral-500 tracking-[-0.1px] mt-0.5">{exp.role}</p>
