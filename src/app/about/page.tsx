@@ -3,90 +3,72 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'About | 박연주',
-  description: '백엔드 개발자 박연주를 소개합니다.',
+  description: '신뢰할 수 있는 경험을 만드는 개발자 박연주입니다.',
 };
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col items-center px-5 py-16 font-sans">
+    <div className="flex flex-col items-center px-5 py-24 font-sans">
       <div className="w-full max-w-[1200px]">
-
-        {/* Header */}
-        <div className="flex items-end justify-between mb-14 gap-6">
-          <div>
-            <h1 className="font-bold text-[36px] leading-[1.15] tracking-[-1px] text-neutral-900 mb-3">
-              박연주
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16">
+          
+          {/* Left Contents */}
+          <div className="flex-1 flex flex-col items-start text-left order-2 md:order-1">
+            <span className="text-[#3b82f6] font-medium text-[16px] mb-3">
+              안녕하세요
+            </span>
+            <h1 className="font-bold text-[38px] md:text-[46px] leading-[1.2] tracking-[-1px] text-neutral-900 mb-6 whitespace-pre-line">
+              신뢰할 수 있는 경험을 만드는<br />
+              <span className="text-[#3b82f6]">백엔드 개발자</span><br />
+              박연주입니다.
             </h1>
-            <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Backend Developer</p>
-          </div>
-          <Image
-            src="/assets/profile.jpeg"
-            alt="박연주 프로필"
-            className="w-36 h-44 object-cover object-top shrink-0"
-            style={{ borderRadius: '4px' }}
-            width={144}
-            height={176}
-            priority
-          />
-        </div>
-
-        {/* 소개 */}
-        <section className="mb-12">
-          <p className="text-[11px] uppercase tracking-[1.5px] text-neutral-400 font-medium mb-5">
-            소개
-          </p>
-          <div className="flex flex-col gap-2.5 text-[15px] text-neutral-700 leading-relaxed tracking-[-0.2px]">
-            <p>안녕하세요. 기술적 신뢰를 바탕으로 사용자 경험을 완성하는 백엔드 개발자 박연주입니다.</p>
-            <p>어떠한 장애 상황에서도 데이터 정합성을 보장하고 시스템 안정성을 유지하는 구조를 지향합니다.</p>
-            <p>고가용성 인프라와 최적화된 파이프라인을 구축하여, 보이지 않는 곳에서도 끊김 없는 신뢰를 제공하겠습니다.</p>
-          </div>
-        </section>
-
-        <div className="border-t border-neutral-100 mb-12" />
-
-        {/* 학력 */}
-        <section className="mb-12">
-          <p className="text-[11px] uppercase tracking-[1.5px] text-neutral-400 font-medium mb-5">
-            학력
-          </p>
-          <div className="flex flex-col gap-1">
-            <p className="text-[15px] text-neutral-900 font-medium tracking-[-0.2px]">건국대학교</p>
-            <p className="text-[14px] text-neutral-600 tracking-[-0.1px]">컴퓨터공학부 전공</p>
-            <p className="text-[13px] text-neutral-400 tracking-[-0.1px] mt-1">2022.03 — 2026.08 (졸업예정)</p>
-          </div>
-        </section>
-
-        <div className="border-t border-neutral-100 mb-12" />
-
-        {/* 연락처 */}
-        <section className="mb-12">
-          <p className="text-[11px] uppercase tracking-[1.5px] text-neutral-400 font-medium mb-5">
-            연락처
-          </p>
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-3">
-              <span className="text-[13px] text-neutral-400 w-14 shrink-0 tracking-[-0.1px]">Email</span>
+            <p className="text-[16px] text-neutral-500 mb-10 tracking-[-0.2px] leading-relaxed">
+              장애를 선제 대응하고 최선의 방법을 찾아나갑니다.
+            </p>
+            
+            {/* Buttons */}
+            <div className="flex flex-wrap gap-4">
               <a
                 href="mailto:yeon703@naver.com"
-                className="text-[14px] text-neutral-700 hover:text-neutral-900 transition-colors tracking-[-0.1px]"
+                className="flex items-center gap-2.5 px-5 py-3 border border-neutral-200 bg-white hover:bg-neutral-50 transition-all duration-150 text-[14px] text-neutral-700 font-medium shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
+                style={{ borderRadius: '6px' }}
               >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-500">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
                 yeon703@naver.com
               </a>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-[13px] text-neutral-400 w-14 shrink-0 tracking-[-0.1px]">GitHub</span>
               <a
                 href="https://github.com/yeonju73"
                 target="_blank"
                 rel="noreferrer"
-                className="text-[14px] text-neutral-700 hover:text-neutral-900 transition-colors tracking-[-0.1px]"
+                className="flex items-center gap-2.5 px-5 py-3 border border-neutral-200 bg-white hover:bg-neutral-50 transition-all duration-150 text-[14px] text-neutral-700 font-medium shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
+                style={{ borderRadius: '6px' }}
               >
-                github.com/yeonju73
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-500">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                </svg>
+                GitHub
               </a>
             </div>
           </div>
-        </section>
-
+          
+          {/* Right Profile Image */}
+          <div className="flex-shrink-0 relative order-1 md:order-2">
+            <div className="w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] md:w-[320px] md:h-[320px] rounded-full overflow-hidden border border-neutral-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+              <Image
+                src="/assets/profile.jpeg"
+                alt="박연주 프로필"
+                className="w-full h-full object-cover"
+                width={320}
+                height={320}
+                priority
+              />
+            </div>
+          </div>
+          
+        </div>
       </div>
     </div>
   );
