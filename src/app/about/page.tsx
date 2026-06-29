@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="flex flex-col items-center px-5 py-16 font-sans">
-      <div className="w-full max-w-160">
+      <div className="w-full max-w-[1200px]">
 
         {/* Header */}
         <div className="flex items-end justify-between mb-14 gap-6">
           <div>
-            <h1 className="font-serif text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
+            <h1 className="font-bold text-[36px] leading-[1.15] tracking-[-1px] text-neutral-900 mb-3">
               박연주
             </h1>
             <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Backend Developer</p>

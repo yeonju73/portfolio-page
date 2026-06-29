@@ -81,9 +81,10 @@ export default function SearchPage() {
 
   return (
     <div className="flex flex-col items-center px-5 py-16 font-sans">
-      <div className="w-full max-w-[640px] flex flex-col items-center">
+      <div className="w-full max-w-[1200px] flex flex-col items-center">
+        <div className="w-full max-w-[640px] flex flex-col items-center">
         {/* Title */}
-        <h1 className="font-serif text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 mb-2 font-normal">
+        <h1 className="font-bold text-[36px] leading-[1.15] tracking-[-1px] text-neutral-900 mb-2">
           무엇이든 물어보세요
         </h1>
         <p className="text-neutral-400 text-[15px] mb-10 tracking-[-0.2px]">
@@ -206,5 +207,6 @@ export default function SearchPage() {
         )}
       </div>
     </div>
-  )
+  </div>
+)
 }

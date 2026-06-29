@@ -1,23 +1,7 @@
 import React from 'react';
-import { DM_Sans, Instrument_Serif } from 'next/font/google';
 import Navigation from '../components/Navigation';
 import './globals.css';
 import { Metadata } from 'next';
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-dm-sans',
-  display: 'swap',
-});
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: ['400'],
-  style: ['normal', 'italic'],
-  variable: '--font-instrument-serif',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: 'profile',
@@ -33,8 +17,8 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`}>
-      <body className="min-h-screen bg-white font-sans antialiased">
+    <html lang="en">
+      <body className="min-h-screen bg-white antialiased">
         {/* Subtle grid background */}
         <div
           className="fixed inset-0 opacity-[0.03] pointer-events-none"

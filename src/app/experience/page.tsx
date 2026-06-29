@@ -62,11 +62,11 @@ export const metadata: Metadata = {
 export default function ExperiencePage() {
   return (
     <div className="flex flex-col items-center px-5 py-16 font-sans">
-      <div className="w-full max-w-160">
+      <div className="w-full max-w-[1200px]">
 
         {/* Header */}
         <div className="mb-14">
-          <h1 className="font-serif text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
+          <h1 className="font-bold text-[36px] leading-[1.15] tracking-[-1px] text-neutral-900 mb-3">
             활동 및 경험
           </h1>
           <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Experience</p>
@@ -93,7 +93,7 @@ export default function ExperiencePage() {
               {/* Right: content */}
               <div className={`flex-1 pb-12 ${i === EXPERIENCES.length - 1 ? 'pb-0' : ''}`}>
                 <div className="mb-3">
-                  <h3 className="font-serif text-[22px] leading-tight tracking-[-0.5px] text-neutral-900 font-normal">
+                  <h3 className="font-bold text-[20px] leading-tight tracking-[-0.3px] text-neutral-900">
                     {exp.org}
                   </h3>
                   <p className="text-[13px] text-neutral-500 tracking-[-0.1px] mt-0.5">{exp.role}</p>

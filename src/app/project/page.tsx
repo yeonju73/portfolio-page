@@ -187,7 +187,7 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
         {/* Modal Header */}
         <div className="sticky top-0 bg-white border-b border-neutral-100 px-8 py-5 flex items-start justify-between">
           <div>
-            <h2 className="font-serif text-[28px] leading-tight tracking-[-0.8px] text-neutral-900 font-normal">
+            <h2 className="font-bold text-[24px] leading-tight tracking-[-0.5px] text-neutral-900">
               {project.title}
             </h2>
             <p className="text-[13px] text-neutral-400 mt-1 tracking-[-0.1px]">{project.period}</p>
@@ -308,24 +308,24 @@ export default function ProjectPage() {
 
   return (
     <div className="flex flex-col items-center px-5 py-16 font-sans">
-      <div className="w-full max-w-160">
+      <div className="w-full max-w-[1200px]">
 
         {/* Header */}
         <div className="mb-14">
-          <h1 className="font-serif text-[52px] leading-[1.05] tracking-[-1.5px] text-neutral-900 font-normal mb-3">
+          <h1 className="font-bold text-[36px] leading-[1.15] tracking-[-1px] text-neutral-900 mb-3">
             프로젝트
           </h1>
           <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Projects</p>
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {PROJECTS.map((project) => (
             <button
               key={project.title}
               onClick={() => setSelected(project)}
-              className="group text-left flex flex-col border border-neutral-200 bg-white hover:border-neutral-400 hover:shadow-[0_2px_12px_rgba(0,0,0,0.06)] transition-all duration-150 overflow-hidden"
-              style={{ borderRadius: '4px' }}
+              className="group text-left flex flex-col border border-neutral-100 bg-white hover:border-neutral-300 hover:shadow-[0_12px_28px_rgba(0,0,0,0.06)] transition-all duration-300 overflow-hidden cursor-pointer transform hover:-translate-y-1 h-full"
+              style={{ borderRadius: '12px' }}
             >
               {/* Thumbnail */}
               {project.images.length === 1 ? (
@@ -350,29 +350,33 @@ export default function ProjectPage() {
               )}
 
               {/* Text */}
-              <div className="flex flex-col gap-3 p-5">
-                <div>
-                  <p className="text-[11px] text-neutral-400 tracking-[-0.1px] mb-1.5">{project.period}</p>
-                  <h3 className="font-serif text-[22px] leading-tight tracking-[-0.5px] text-neutral-900 font-normal mb-1">
+              <div className="flex flex-col flex-1 gap-4 p-6">
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-bold text-[19px] leading-tight tracking-[-0.3px] text-neutral-900 mb-1">
                     {project.title}
                   </h3>
-                  <p className="text-[13px] text-neutral-500 leading-snug tracking-[-0.1px]">{project.subtitle}</p>
+                  <p className="text-[13.5px] text-neutral-500 leading-snug tracking-[-0.1px] line-clamp-2 min-h-10">
+                    {project.subtitle}
+                  </p>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1.5 mt-1">
                   {project.tags.slice(0, 4).map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 border border-neutral-100 text-[11px] text-neutral-500 tracking-[-0.1px] bg-neutral-50 group-hover:border-neutral-200 transition-colors"
-                      style={{ borderRadius: '2px' }}
+                      className="px-2.5 py-0.5 border border-neutral-100 text-[11px] text-neutral-500 tracking-[-0.1px] bg-neutral-50 group-hover:border-neutral-200 transition-colors"
+                      style={{ borderRadius: '20px' }}
                     >
                       {tag}
                     </span>
                   ))}
                   {project.tags.length > 4 && (
-                    <span className="px-2 py-0.5 text-[11px] text-neutral-400 tracking-[-0.1px]">
+                    <span className="px-2 py-0.5 text-[11px] text-neutral-400 tracking-[-0.1px] self-center">
                       +{project.tags.length - 4}
                     </span>
                   )}
+                </div>
+                <div className="mt-auto pt-4 border-t border-neutral-50 text-[13px] font-medium text-neutral-400 group-hover:text-neutral-900 transition-colors flex items-center gap-1">
+                  자세히 보기 <span className="transform group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>
             </button>
