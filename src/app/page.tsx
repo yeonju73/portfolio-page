@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Navigation from '../components/Navigation'
 import AboutSection from '../components/AboutSection'
+import SearchSection from '../components/SearchSection'
 import ProjectSection from '../components/ProjectSection'
 import ExperienceSection from '../components/ExperienceSection'
 import CertificationSection from '../components/CertificationSection'
@@ -11,7 +12,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState('about')
 
   useEffect(() => {
-    const sections = ['about', 'project', 'experience', 'certification'];
+    const sections = ['about', 'search', 'project', 'experience', 'certification'];
     const observerOptions = {
       root: null,
       rootMargin: '-20% 0px -60% 0px',
@@ -48,6 +49,7 @@ export default function Home() {
 
       {/* Sections */}
       <AboutSection />
+      <SearchSection />
       <ProjectSection />
       <ExperienceSection />
       <CertificationSection />

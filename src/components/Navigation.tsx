@@ -8,6 +8,7 @@ interface NavTab {
 
 const NAV_TABS: NavTab[] = [
   { id: 'about', label: 'About', href: '#about' },
+  { id: 'search', label: 'Search', href: '#search' },
   { id: 'project', label: 'Projects', href: '#project' },
   { id: 'experience', label: 'Experiences', href: '#experience' },
   { id: 'certification', label: 'Certifications', href: '#certification' },
