@@ -1,5 +1,3 @@
-import { Metadata } from 'next';
-
 interface CertificationItem {
   name: string;
   date: string;
@@ -48,14 +46,9 @@ const CONTESTS: ContestItem[] = [
   },
 ]
 
-export const metadata: Metadata = {
-  title: 'Certification & Awards | 박연주',
-  description: '백엔드 개발자 박연주의 자격증 및 수상 이력입니다.',
-};
-
-export default function CertificationPage() {
+export default function CertificationSection() {
   return (
-    <div className="flex flex-col items-center px-5 py-16 font-sans">
+    <div id="certification" className="flex flex-col items-center px-5 py-24 font-sans">
       <div className="w-full max-w-[1200px]">
 
         {/* Header */}

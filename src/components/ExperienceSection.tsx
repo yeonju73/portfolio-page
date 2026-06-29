@@ -1,13 +1,4 @@
-import { Metadata } from 'next';
-
-interface ExperienceItem {
-  org: string;
-  role: string;
-  period: string;
-  bullets: string[];
-}
-
-const EXPERIENCES: ExperienceItem[] = [
+const EXPERIENCES = [
   {
     org: '우리FIS아카데미 6기',
     role: '클라우드 서비스 개발과정',
@@ -54,14 +45,16 @@ const EXPERIENCES: ExperienceItem[] = [
   },
 ]
 
-export const metadata: Metadata = {
-  title: 'Experience | 박연주',
-  description: '백엔드 개발자 박연주의 활동 및 경험 사항입니다.',
-};
+interface ExperienceItem {
+  org: string;
+  role: string;
+  period: string;
+  bullets: string[];
+}
 
-export default function ExperiencePage() {
+export default function ExperienceSection() {
   return (
-    <div className="flex flex-col items-center px-5 py-16 font-sans">
+    <div id="experience" className="flex flex-col items-center px-5 py-24 font-sans border-b border-neutral-100">
       <div className="w-full max-w-[1200px]">
 
         {/* Header */}
@@ -74,7 +67,7 @@ export default function ExperiencePage() {
 
         {/* Timeline */}
         <div className="flex flex-col">
-          {EXPERIENCES.map((exp, i) => (
+          {EXPERIENCES.map((exp: ExperienceItem, i: number) => (
             <div key={i} className="flex gap-8 group">
               {/* Left: period */}
               <div className="w-36 shrink-0 pt-0.5">

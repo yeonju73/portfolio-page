@@ -1,14 +1,8 @@
 import Image from 'next/image';
-import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'About | 박연주',
-  description: '신뢰할 수 있는 경험을 만드는 개발자 박연주입니다.',
-};
-
-export default function AboutPage() {
+export default function AboutSection() {
   return (
-    <div className="flex flex-col items-center px-5 py-24 font-sans">
+    <div id="about" className="flex flex-col items-center px-5 py-24 font-sans border-b border-neutral-100">
       <div className="w-full max-w-[1200px]">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16">
           

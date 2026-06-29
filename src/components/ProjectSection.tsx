@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import projectData from '../../data/projects.json'
+import projectData from '../data/projects.json'
 
 interface ProjectRole {
   title: string;
@@ -167,11 +167,11 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
   )
 }
 
-export default function ProjectPage() {
+export default function ProjectSection() {
   const [selected, setSelected] = useState<ProjectItem | null>(null)
 
   return (
-    <div className="flex flex-col items-center px-5 py-16 font-sans">
+    <div id="project" className="flex flex-col items-center px-5 py-24 font-sans border-b border-neutral-100">
       <div className="w-full max-w-[1200px]">
 
         {/* Header */}

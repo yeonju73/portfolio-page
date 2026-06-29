@@ -1,5 +1,56 @@
-import { redirect } from 'next/navigation';
+"use client";
+
+import { useState, useEffect } from 'react'
+import Navigation from '../components/Navigation'
+import AboutSection from '../components/AboutSection'
+import ProjectSection from '../components/ProjectSection'
+import ExperienceSection from '../components/ExperienceSection'
+import CertificationSection from '../components/CertificationSection'
 
 export default function Home() {
-  redirect('/search');
+  const [activeSection, setActiveSection] = useState('about')
+
+  useEffect(() => {
+    const sections = ['about', 'project', 'experience', 'certification'];
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sections.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => {
+      sections.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) observer.unobserve(element);
+      });
+    };
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Sticky Navigation */}
+      <Navigation activeSection={activeSection} />
+
+      {/* Sections */}
+      <AboutSection />
+      <ProjectSection />
+      <ExperienceSection />
+      <CertificationSection />
+    </div>
+  )
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
 import './globals.css';
 import { Metadata } from 'next';
 
@@ -30,9 +29,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
             backgroundSize: '48px 48px',
           }}
         />
-
-        {/* Navigation */}
-        <Navigation />
 
         {/* Page Content */}
         <main className="relative z-10">

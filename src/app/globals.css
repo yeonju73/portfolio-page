@@ -1,6 +1,11 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 55px; /* height of the navigation bar */
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
