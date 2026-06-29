@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import profileImg from '../../assets/profile.jpeg';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -21,10 +20,12 @@ export default function AboutPage() {
             <p className="text-[15px] text-neutral-500 tracking-[-0.2px]">Backend Developer</p>
           </div>
           <Image
-            src={profileImg}
+            src="/assets/profile.jpeg"
             alt="박연주 프로필"
             className="w-36 h-44 object-cover object-top shrink-0"
             style={{ borderRadius: '4px' }}
+            width={144}
+            height={176}
             priority
           />
         </div>
