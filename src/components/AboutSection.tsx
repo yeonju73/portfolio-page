@@ -50,13 +50,13 @@ export default function AboutSection() {
           
           {/* Right Profile Image */}
           <div className="flex-shrink-0 relative order-1 md:order-2">
-            <div className="w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] md:w-[320px] md:h-[320px] rounded-full overflow-hidden border border-neutral-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+            <div className="w-[210px] h-[210px] sm:w-[230px] sm:h-[230px] md:w-[250px] md:h-[250px] rounded-full overflow-hidden border border-neutral-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
               <Image
                 src="/assets/profile.jpeg"
                 alt="박연주 프로필"
                 className="w-full h-full object-cover"
-                width={320}
-                height={320}
+                width={250}
+                height={250}
                 priority
               />
             </div>
