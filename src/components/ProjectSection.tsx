@@ -103,17 +103,19 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
               <span className="text-[11px] uppercase tracking-[1.5px] text-neutral-400 font-medium w-20 shrink-0 pt-0.5">팀 구성</span>
               <p className="text-[13px] text-neutral-600 tracking-[-0.1px]">{project.team}</p>
             </div>
-            <div className="flex gap-3">
-              <span className="text-[11px] uppercase tracking-[1.5px] text-neutral-400 font-medium w-20 shrink-0 pt-0.5">GitHub</span>
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                className="text-[13px] text-neutral-700 hover:text-neutral-900 transition-colors tracking-[-0.1px]"
-              >
-                {project.github}
-              </a>
-            </div>
+            {project.github && (
+              <div className="flex gap-3">
+                <span className="text-[11px] uppercase tracking-[1.5px] text-neutral-400 font-medium w-20 shrink-0 pt-0.5">GitHub</span>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[13px] text-neutral-700 hover:text-neutral-900 transition-colors tracking-[-0.1px]"
+                >
+                  {project.github}
+                </a>
+              </div>
+            )}
           </section>
 
           {/* Tech Stack */}
