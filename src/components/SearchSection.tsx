@@ -30,7 +30,7 @@ const suggestedQuestions: Question[] = [
   { text: 'bankK 프로젝트의 멱등성 보장 기법을 설명해줘.', icon: '☁' },
   { text: 'DriveU 대용량 파일 업로드 최적화 방법은?', icon: '⚡' },
   { text: '박연주 님의 보유 자격증과 수상 기록은?', icon: '🏆' },
-  { text: '활동 및 경험(Experiences) 내용을 요약해줘.', icon: '📄' },
+  { text: '활동 및 경험 내용을 요약해줘.', icon: '📄' },
 ]
 
 export default function SearchSection() {
@@ -40,7 +40,7 @@ export default function SearchSection() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (messagesEndRef.current) {
+    if ((messages.length > 0 || loading) && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages, loading])

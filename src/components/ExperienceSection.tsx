@@ -16,7 +16,7 @@ const EXPERIENCES: ExperienceItem[] = [
   {
     org: '우리FIS아카데미 6기',
     role: '클라우드 서비스 개발과정',
-    period: '2025.12.30 — 현재',
+    period: '2025.12.30 — 2026.06.25',
     abbr: 'Woori FIS',
     summary: '웹 풀스택 개발 및 클라우드 네이티브 역량을 기르고, MCP 기반 협업 자동화와 고가용성 아키텍처를 학습했습니다.',
     bgGradient: 'from-[#0054a6] to-[#0089e1]',
@@ -30,7 +30,7 @@ const EXPERIENCES: ExperienceItem[] = [
   {
     org: 'GDGoC Konkuk',
     role: '서버 파트원',
-    period: '2025.09 — 현재',
+    period: '2025.09 — 2026.06.23',
     abbr: 'GDGoC',
     summary: '대규모 분산 시스템 설계 및 고가용성 서버 구조를 스터디하고 정기 기술 발표 세션에 참여했습니다.',
     bgGradient: 'from-[#ea4335] via-[#4285f4] to-[#fbbc05]',

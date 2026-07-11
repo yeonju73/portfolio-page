@@ -13,6 +13,12 @@ export default function Home() {
 
   useEffect(() => {
     const sections = ['about', 'search', 'project', 'experience', 'certification'];
+    
+    // Set active section to 'about' if we are at the very top of the page initially
+    if (window.scrollY < 50) {
+      setActiveSection('about');
+    }
+
     const observerOptions = {
       root: null,
       rootMargin: '-20% 0px -60% 0px',
@@ -20,6 +26,12 @@ export default function Home() {
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      // If we are at the very top, force 'about'
+      if (window.scrollY < 50) {
+        setActiveSection('about');
+        return;
+      }
+
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveSection(entry.target.id);
@@ -34,7 +46,16 @@ export default function Home() {
       if (element) observer.observe(element);
     });
 
+    const handleScroll = () => {
+      if (window.scrollY < 50) {
+        setActiveSection('about');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => {
+      window.removeEventListener('scroll', handleScroll);
       sections.forEach((id) => {
         const element = document.getElementById(id);
         if (element) observer.unobserve(element);

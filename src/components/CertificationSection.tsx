@@ -18,9 +18,15 @@ interface ContestItem {
 const CERTIFICATIONS: CertificationItem[] = [
   { name: '정보처리기사', date: '2025.12.24' },
   { name: 'SQLD', date: '2025.12.12' },
+  { name: 'Toeic Speaking IH', date: '2026.03.14' }
 ]
 
 const AWARDS: AwardItem[] = [
+  {
+    name: '우리FIS아카데미 프로젝트 우수상',
+    org: '우리FIS',
+    date: '2026.06.25',
+  },
   {
     name: 'KUIT 5기 데모데이 최우수상',
     org: '건국대학교 교내 기획개발 동아리 KUIT',
