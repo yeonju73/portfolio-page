@@ -1,0 +1,29 @@
+[
+  {
+    "id": "msa-idempotency-handling",
+    "title": "MSA 환경에서 분산 트랜잭션과 멱등성 보장 기법",
+    "excerpt": "은행 및 PG사 연동 과정에서 발생할 수 있는 네트워크 유실 문제를 방지하기 위해 멱등키와 Redis 분산 락을 활용한 신뢰성 높은 트랜잭션 설계 방안을 다룹니다.",
+    "category": "Backend",
+    "tags": ["Spring Boot", "Redis", "Idempotency", "MSA"],
+    "date": "2026.06.15",
+    "readTime": "7 min read"
+  },
+  {
+    "id": "spring-batch-resource-cleaning",
+    "title": "Spring Batch와 대용량 리소스 자동 정리 파이프라인 구축기",
+    "excerpt": "수백만 건의 불완전한 파일 업로드 데이터와 30일이 경과된 휴지통 리소스를 안전하게 청소하고, 장애 내결함성(Skip/Retry)을 보장하기 위한 배치 프로세스 고도화 여정입니다.",
+    "category": "Batch",
+    "tags": ["Spring Batch", "AWS S3", "Circuit Breaker"],
+    "date": "2026.05.20",
+    "readTime": "5 min read"
+  },
+  {
+    "id": "closure-table-directory-optimization",
+    "title": "Closure Table 패턴과 인덱스 튜닝으로 무제한 깊이의 디렉토리 조회 최적화하기",
+    "excerpt": "계층 구조 데이터 조회 시 발생하는 N+1 문제를 방지하기 위해 Closure Table 패턴을 도입하고, 복합 인덱스 설계를 통해 조회 쿼리 성능을 3배 이상 개선한 경험을 소개합니다.",
+    "category": "Database",
+    "tags": ["JPA", "MySQL", "Closure Table", "Query Optimization"],
+    "date": "2026.04.10",
+    "readTime": "8 min read"
+  }
+]

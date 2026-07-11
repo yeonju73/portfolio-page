@@ -1,5 +1,7 @@
 "use client";
 
+import Link from 'next/link';
+
 interface NavTab {
   id: string;
   label: string;
@@ -7,11 +9,12 @@ interface NavTab {
 }
 
 const NAV_TABS: NavTab[] = [
-  { id: 'about', label: 'About', href: '#about' },
-  { id: 'search', label: 'Search', href: '#search' },
-  { id: 'project', label: 'Projects', href: '#project' },
-  { id: 'experience', label: 'Experiences', href: '#experience' },
-  { id: 'certification', label: 'Certifications', href: '#certification' },
+  { id: 'about', label: 'About', href: '/#about' },
+  { id: 'search', label: 'Search', href: '/#search' },
+  { id: 'project', label: 'Projects', href: '/#project' },
+  { id: 'experience', label: 'Experiences', href: '/#experience' },
+  { id: 'certification', label: 'Certifications', href: '/#certification' },
+  { id: 'blog', label: 'Blog', href: '/blog' },
 ];
 
 interface NavigationProps {
@@ -27,7 +30,7 @@ export default function Navigation({ activeSection }: NavigationProps) {
         {NAV_TABS.map((tab) => {
           const isActive = activeSection === tab.id;
           return (
-            <a
+            <Link
               key={tab.id}
               href={tab.href}
               className={`px-4 py-4 text-[13px] font-medium tracking-[-0.1px] transition-colors duration-150 border-b-2 -mb-px ${
@@ -37,7 +40,7 @@ export default function Navigation({ activeSection }: NavigationProps) {
               }`}
             >
               {tab.label}
-            </a>
+            </Link>
           );
         })}
       </div>

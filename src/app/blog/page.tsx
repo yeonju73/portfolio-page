@@ -1,0 +1,128 @@
+"use client";
+
+import { useState } from 'react';
+import Navigation from '../../components/Navigation';
+import postsData from '../../data/posts.json';
+
+interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  tags: string[];
+  date: string;
+  readTime: string;
+}
+
+const POSTS = postsData as BlogPost[];
+const CATEGORIES = ['All', 'Backend', 'Batch', 'Database'];
+
+export default function BlogPage() {
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  const filteredPosts = selectedCategory === 'All'
+    ? POSTS
+    : POSTS.filter(post => post.category === selectedCategory);
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Sticky Navigation */}
+      <Navigation activeSection="blog" />
+
+      {/* Main Container */}
+      <div className="max-w-[1200px] mx-auto px-6 py-20">
+        
+        {/* Header */}
+        <div className="max-w-[800px] mb-16">
+          <span className="text-[#3b82f6] font-semibold text-[13px] tracking-[1.5px] uppercase mb-3 block">
+            Dev Blog
+          </span>
+          <h1 className="font-bold text-[38px] md:text-[46px] leading-[1.2] tracking-[-1px] text-neutral-900 mb-5">
+            Writing & Thoughts
+          </h1>
+          <p className="text-[16px] text-neutral-500 tracking-[-0.2px] leading-relaxed">
+            개발 과정에서의 고민, 기술적 트러블슈팅, 아키텍처 개선 기록을 공유합니다.
+          </p>
+        </div>
+
+        {/* Category Filters */}
+        <div className="flex flex-wrap gap-2.5 mb-14 border-b border-neutral-100 pb-6">
+          {CATEGORIES.map((category) => {
+            const isActive = selectedCategory === category;
+            return (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 text-[13px] font-medium tracking-[-0.1px] transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? 'bg-neutral-900 text-white shadow-[0_4px_12px_rgba(0,0,0,0.08)]'
+                    : 'bg-neutral-50 border border-neutral-200/60 text-neutral-600 hover:text-neutral-950 hover:bg-neutral-100/60'
+                }`}
+                style={{ borderRadius: '20px' }}
+              >
+                {category}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Blog Posts List */}
+        <div className="max-w-[800px] flex flex-col gap-12">
+          {filteredPosts.length > 0 ? (
+            filteredPosts.map((post) => (
+              <article 
+                key={post.id}
+                className="group flex flex-col items-start border-b border-neutral-100 pb-12 last:border-b-0"
+              >
+                {/* Meta details */}
+                <div className="flex items-center gap-3 text-[12px] text-neutral-400 font-medium tracking-[-0.1px] mb-3">
+                  <span>{post.date}</span>
+                  <span className="w-1 h-1 rounded-full bg-neutral-300" />
+                  <span className="text-[#3b82f6]">{post.category}</span>
+                  <span className="w-1 h-1 rounded-full bg-neutral-300" />
+                  <span>{post.readTime}</span>
+                </div>
+
+                {/* Title */}
+                <h2 className="font-bold text-[22px] md:text-[24px] text-neutral-900 leading-snug tracking-[-0.4px] mb-3.5 group-hover:text-[#3b82f6] transition-colors duration-200 cursor-pointer">
+                  {post.title}
+                </h2>
+
+                {/* Excerpt */}
+                <p className="text-[14.5px] text-neutral-500 leading-relaxed tracking-[-0.2px] mb-5">
+                  {post.excerpt}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2.5 py-0.5 border border-neutral-100 text-[11px] text-neutral-500 bg-neutral-50"
+                      style={{ borderRadius: '4px' }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Read Link */}
+                <button 
+                  onClick={() => alert('상세 글 페이지는 준비 중입니다.')}
+                  className="text-[13.5px] font-semibold text-neutral-800 group-hover:text-[#3b82f6] transition-colors duration-200 flex items-center gap-1 cursor-pointer"
+                >
+                  Read Post <span className="transform group-hover:translate-x-1 transition-transform duration-200">→</span>
+                </button>
+              </article>
+            ))
+          ) : (
+            <div className="text-center py-20 border border-dashed border-neutral-200 rounded-2xl bg-neutral-50/50">
+              <p className="text-[14px] text-neutral-400">등록된 블로그 글이 없습니다.</p>
+            </div>
+          )}
+        </div>
+
+      </div>
+    </div>
+  );
+}

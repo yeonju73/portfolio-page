@@ -14,11 +14,6 @@ export default function Home() {
   useEffect(() => {
     const sections = ['about', 'search', 'project', 'experience', 'certification'];
     
-    // Set active section to 'about' if we are at the very top of the page initially
-    if (window.scrollY < 50) {
-      setActiveSection('about');
-    }
-
     const observerOptions = {
       root: null,
       rootMargin: '-20% 0px -60% 0px',
