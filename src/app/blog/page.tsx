@@ -1,12 +1,20 @@
 import Navigation from '../../components/Navigation';
 import BlogList, { BlogPost } from './BlogList';
 import { supabase } from '../../utils/supabase';
+import { createClient as createServerClient } from '../../lib/supabase/server';
+import AuthButton from './AuthButton';
+import Link from 'next/link';
 
 // Tell Next.js to not cache this page statically if we want it dynamic, 
 // or let Next.js statically generate it and revalidate.
 export const revalidate = 60; // Revalidate every 60 seconds
 
 export default async function BlogPage() {
+  // Fetch session to determine if logged in
+  const supabaseServer = await createServerClient();
+  const { data: { user } } = await supabaseServer.auth.getUser();
+  const isLoggedIn = !!user;
+
   // Fetch posts from Supabase database joined with tags
   const { data: rawPosts, error } = await supabase
     .from('posts')
@@ -26,6 +34,20 @@ export default async function BlogPage() {
   if (error) {
     console.error('Error fetching posts from Supabase:', error);
   }
+
+  // Fetch all tags from Supabase
+  const { data: rawTags, error: tagsError } = await supabase
+    .from('tags')
+    .select('name')
+    .order('name', { ascending: true });
+
+  if (tagsError) {
+    console.error('Error fetching tags from Supabase:', tagsError);
+  }
+
+  const allTags = (rawTags || [])
+    .map(t => t.name)
+    .filter((name): name is string => typeof name === 'string');
 
   interface RawPostTag {
     tags: {
@@ -62,10 +84,6 @@ export default async function BlogPage() {
       .trim();
     const excerpt = cleanExcerptText.substring(0, 140) + (cleanExcerptText.length > 140 ? '...' : '');
 
-    // Simple read time estimation
-    const words = content.trim().split(/\s+/).filter(Boolean).length;
-    const readTime = Math.max(1, Math.ceil(words / 150)) + ' min read';
-
     return {
       id: post.id,
       title: post.title,
@@ -73,7 +91,6 @@ export default async function BlogPage() {
       category,
       tags,
       date,
-      readTime,
     };
   });
 
@@ -86,20 +103,34 @@ export default async function BlogPage() {
       <div className="max-w-[1200px] mx-auto px-6 py-20">
         
         {/* Header */}
-        <div className="max-w-[800px] mb-16">
-          <span className="text-[#3b82f6] font-semibold text-[13px] tracking-[1.5px] uppercase mb-3 block">
-            Dev Blog
-          </span>
-          <h1 className="font-bold text-[38px] md:text-[46px] leading-[1.2] tracking-[-1px] text-neutral-900 mb-5">
-            Writing & Thoughts
-          </h1>
-          <p className="text-[16px] text-neutral-500 tracking-[-0.2px] leading-relaxed">
-            개발 과정에서의 고민, 기술적 트러블슈팅, 아키텍처 개선 기록을 공유합니다.
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16">
+          <div className="max-w-[800px]">
+            <span className="text-[#3b82f6] font-semibold text-[13px] tracking-[1.5px] uppercase mb-3 block">
+              Dev Blog
+            </span>
+            <h1 className="font-bold text-[38px] md:text-[46px] leading-[1.2] tracking-[-1px] text-neutral-900 mb-5">
+              Writing & Thoughts
+            </h1>
+            <p className="text-[16px] text-neutral-500 tracking-[-0.2px] leading-relaxed">
+              개발 과정에서의 고민, 기술적 트러블슈팅, 아키텍처 개선 기록을 공유합니다.
+            </p>
+          </div>
+          <div className="shrink-0 pb-1 flex items-center gap-2.5">
+            {isLoggedIn && (
+              <Link
+                href="/admin/write"
+                className="px-4.5 py-2 bg-[#3b82f6] hover:bg-[#2563eb] text-white transition-colors text-[13px] font-medium cursor-pointer inline-block shadow-[0_4px_12px_rgba(59,130,246,0.12)]"
+                style={{ borderRadius: '20px' }}
+              >
+                글쓰기
+              </Link>
+            )}
+            <AuthButton isLoggedIn={isLoggedIn} />
+          </div>
         </div>
 
         {/* Dynamic posts list containing category filters */}
-        <BlogList posts={formattedPosts} />
+        <BlogList posts={formattedPosts} allTags={allTags} />
 
       </div>
     </div>

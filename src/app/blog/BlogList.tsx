@@ -10,22 +10,22 @@ export interface BlogPost {
   category: string;
   tags: string[];
   date: string;
-  readTime: string;
 }
 
 interface BlogListProps {
   posts: BlogPost[];
+  allTags: string[];
 }
 
-export default function BlogList({ posts }: BlogListProps) {
+export default function BlogList({ posts, allTags }: BlogListProps) {
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  // Extract unique categories dynamically from the posts, default to ['All']
-  const categories = ['All', ...Array.from(new Set(posts.map(post => post.category).filter(Boolean)))];
+  // Use the allTags prop passed from the database, prepended with 'All'
+  const categories = ['All', ...allTags];
 
   const filteredPosts = selectedCategory === 'All'
     ? posts
-    : posts.filter(post => post.category === selectedCategory);
+    : posts.filter(post => post.tags.includes(selectedCategory));
 
   return (
     <div>
@@ -63,8 +63,6 @@ export default function BlogList({ posts }: BlogListProps) {
                 <span>{post.date}</span>
                 <span className="w-1 h-1 rounded-full bg-neutral-300" />
                 <span className="text-[#3b82f6]">{post.category}</span>
-                <span className="w-1 h-1 rounded-full bg-neutral-300" />
-                <span>{post.readTime}</span>
               </div>
 
               {/* Title */}

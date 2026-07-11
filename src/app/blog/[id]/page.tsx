@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Navigation from '../../../components/Navigation';
+import MarkdownRenderer from '../../../components/MarkdownRenderer';
 import { supabase } from '../../../utils/supabase';
+import { createClient as createServerClient } from '../../../lib/supabase/server';
 import { Metadata } from 'next';
 
 interface PageProps {
@@ -24,6 +26,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { id } = await params;
+
+  // Fetch session to determine if logged in
+  const supabaseServer = await createServerClient();
+  const { data: { user: currentUser } } = await supabaseServer.auth.getUser();
+  const isLoggedIn = !!currentUser;
 
   // Query Supabase for the post details by ID
   const { data: post, error } = await supabase
@@ -84,92 +91,6 @@ export default async function BlogPostPage({ params }: PageProps) {
   const dd = String(dateObj.getDate()).padStart(2, '0');
   const date = `${yyyy}.${mm}.${dd}`;
 
-  // Simple reading time estimator
-  const content = post.content || '';
-  const words = content.trim().split(/\s+/).filter(Boolean).length;
-  const readTime = Math.max(1, Math.ceil(words / 150)) + ' min read';
-
-  // Helper to render markdown content safely and cleanly as JSX/HTML structure
-  const renderContent = (text: string) => {
-    const lines = text.split('\n');
-    let insideList = false;
-    const listItems: string[] = [];
-    const elements: React.ReactNode[] = [];
-
-    const flushList = (key: number) => {
-      if (listItems.length > 0) {
-        elements.push(
-          <ul key={`ul-${key}`} className="list-disc pl-6 mb-6 flex flex-col gap-2.5 text-neutral-600 leading-relaxed text-[15.5px]">
-            {listItems.map((item, idx) => (
-              <li key={`li-${key}-${idx}`}>{item}</li>
-            ))}
-          </ul>
-        );
-        listItems.length = 0;
-      }
-    };
-
-    lines.forEach((line, index) => {
-      const trimmed = line.trim();
-
-      // Heading 1
-      if (trimmed.startsWith('# ')) {
-        flushList(index);
-        elements.push(
-          <h1 key={index} className="text-[28px] md:text-[34px] font-bold text-neutral-900 mt-10 mb-4 tracking-[-0.5px]">
-            {trimmed.replace('# ', '')}
-          </h1>
-        );
-      } 
-      // Heading 2
-      else if (trimmed.startsWith('## ')) {
-        flushList(index);
-        elements.push(
-          <h2 key={index} className="text-[22px] md:text-[26px] font-bold text-neutral-900 mt-8 mb-3.5 tracking-[-0.3px]">
-            {trimmed.replace('## ', '')}
-          </h2>
-        );
-      } 
-      // Heading 3
-      else if (trimmed.startsWith('### ')) {
-        flushList(index);
-        elements.push(
-          <h3 key={index} className="text-[18px] md:text-[20px] font-bold text-neutral-900 mt-6 mb-3">
-            {trimmed.replace('### ', '')}
-          </h3>
-        );
-      } 
-      // Bullet items
-      else if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-        insideList = true;
-        listItems.push(trimmed.substring(2));
-      } 
-      // Code blocks (very basic styling)
-      else if (trimmed.startsWith('```')) {
-        flushList(index);
-        // We skip processing the code block delimiter itself but can wrap next lines
-      } 
-      // Paragraphs or empty lines
-      else {
-        if (trimmed === '') {
-          flushList(index);
-        } else {
-          if (insideList) {
-            flushList(index);
-            insideList = false;
-          }
-          elements.push(
-            <p key={index} className="text-[15.5px] text-neutral-600 leading-relaxed mb-5 tracking-[-0.1px] whitespace-pre-line">
-              {trimmed}
-            </p>
-          );
-        }
-      }
-    });
-
-    flushList(lines.length);
-    return elements;
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -180,21 +101,31 @@ export default async function BlogPostPage({ params }: PageProps) {
       <article className="max-w-[1200px] mx-auto px-6 py-20">
         <div className="max-w-[760px] mx-auto">
           
-          {/* Back button */}
-          <Link 
-            href="/blog" 
-            className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-neutral-400 hover:text-neutral-900 transition-colors mb-10 group"
-          >
-            <span className="transform group-hover:-translate-x-1 transition-transform">←</span> 목록으로 돌아가기
-          </Link>
+          {/* Back button and Edit button */}
+          <div className="flex items-center justify-between mb-10">
+            <Link 
+              href="/blog" 
+              className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-neutral-400 hover:text-neutral-900 transition-colors group"
+            >
+              <span className="transform group-hover:-translate-x-1 transition-transform">←</span> 목록으로 돌아가기
+            </Link>
+            
+            {isLoggedIn && (
+              <Link
+                href={`/admin/edit/${post.id}`}
+                className="px-4.5 py-2 border border-neutral-200 text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 transition-colors text-[13px] font-medium cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                style={{ borderRadius: '20px' }}
+              >
+                수정하기
+              </Link>
+            )}
+          </div>
 
           {/* Post Header */}
           <header className="border-b border-neutral-100 pb-8 mb-10">
             {/* Meta */}
             <div className="flex items-center gap-3 text-[12.5px] text-neutral-400 font-medium mb-4">
               <span>{date}</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-neutral-200" />
-              <span>{readTime}</span>
             </div>
 
             {/* Title */}
@@ -217,9 +148,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           </header>
 
           {/* Post Body (Content) */}
-          <div className="prose prose-neutral max-w-none">
-            {renderContent(content)}
-          </div>
+          <MarkdownRenderer content={post.content || ''} />
 
         </div>
       </article>
