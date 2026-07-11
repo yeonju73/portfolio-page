@@ -1,28 +1,81 @@
-"use client";
-
-import { useState } from 'react';
 import Navigation from '../../components/Navigation';
-import postsData from '../../data/posts.json';
+import BlogList, { BlogPost } from './BlogList';
+import { supabase } from '../../utils/supabase';
 
-interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  tags: string[];
-  date: string;
-  readTime: string;
-}
+// Tell Next.js to not cache this page statically if we want it dynamic, 
+// or let Next.js statically generate it and revalidate.
+export const revalidate = 60; // Revalidate every 60 seconds
 
-const POSTS = postsData as BlogPost[];
-const CATEGORIES = ['All', 'Backend', 'Batch', 'Database'];
+export default async function BlogPage() {
+  // Fetch posts from Supabase database joined with tags
+  const { data: rawPosts, error } = await supabase
+    .from('posts')
+    .select(`
+      id,
+      title,
+      content,
+      created_at,
+      post_tags (
+        tags (
+          name
+        )
+      )
+    `)
+    .order('created_at', { ascending: false });
 
-export default function BlogPage() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  if (error) {
+    console.error('Error fetching posts from Supabase:', error);
+  }
 
-  const filteredPosts = selectedCategory === 'All'
-    ? POSTS
-    : POSTS.filter(post => post.category === selectedCategory);
+  interface RawPostTag {
+    tags: {
+      name: string | null;
+    } | null;
+  }
+
+  // Format the raw database posts to match our UI-friendly BlogPost interface
+  const formattedPosts: BlogPost[] = (rawPosts || []).map((post) => {
+    const tags: string[] = [];
+    if (Array.isArray(post.post_tags)) {
+      (post.post_tags as unknown as RawPostTag[]).forEach((pt) => {
+        if (pt?.tags?.name) {
+          tags.push(pt.tags.name);
+        }
+      });
+    }
+
+    // Default category to the first tag, or 'Backend' if none exists
+    const category = tags[0] || 'Backend';
+
+    // Format created_at to YYYY.MM.DD
+    const dateObj = new Date(post.created_at);
+    const yyyy = dateObj.getFullYear();
+    const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const dd = String(dateObj.getDate()).padStart(2, '0');
+    const date = `${yyyy}.${mm}.${dd}`;
+
+    // Generate summary excerpt by stripping basic markdown symbols
+    const content = post.content || '';
+    const cleanExcerptText = content
+      .replace(/[#*`_\-\n]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const excerpt = cleanExcerptText.substring(0, 140) + (cleanExcerptText.length > 140 ? '...' : '');
+
+    // Simple read time estimation
+    const words = content.trim().split(/\s+/).filter(Boolean).length;
+    const readTime = Math.max(1, Math.ceil(words / 150)) + ' min read';
+
+    return {
+      id: post.id,
+      title: post.title,
+      excerpt,
+      category,
+      tags,
+      date,
+      readTime,
+    };
+  });
 
   return (
     <div className="min-h-screen bg-white">
@@ -45,82 +98,8 @@ export default function BlogPage() {
           </p>
         </div>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap gap-2.5 mb-14 border-b border-neutral-100 pb-6">
-          {CATEGORIES.map((category) => {
-            const isActive = selectedCategory === category;
-            return (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 text-[13px] font-medium tracking-[-0.1px] transition-all duration-200 cursor-pointer ${
-                  isActive
-                    ? 'bg-neutral-900 text-white shadow-[0_4px_12px_rgba(0,0,0,0.08)]'
-                    : 'bg-neutral-50 border border-neutral-200/60 text-neutral-600 hover:text-neutral-950 hover:bg-neutral-100/60'
-                }`}
-                style={{ borderRadius: '20px' }}
-              >
-                {category}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Blog Posts List */}
-        <div className="max-w-[800px] flex flex-col gap-12">
-          {filteredPosts.length > 0 ? (
-            filteredPosts.map((post) => (
-              <article 
-                key={post.id}
-                className="group flex flex-col items-start border-b border-neutral-100 pb-12 last:border-b-0"
-              >
-                {/* Meta details */}
-                <div className="flex items-center gap-3 text-[12px] text-neutral-400 font-medium tracking-[-0.1px] mb-3">
-                  <span>{post.date}</span>
-                  <span className="w-1 h-1 rounded-full bg-neutral-300" />
-                  <span className="text-[#3b82f6]">{post.category}</span>
-                  <span className="w-1 h-1 rounded-full bg-neutral-300" />
-                  <span>{post.readTime}</span>
-                </div>
-
-                {/* Title */}
-                <h2 className="font-bold text-[22px] md:text-[24px] text-neutral-900 leading-snug tracking-[-0.4px] mb-3.5 group-hover:text-[#3b82f6] transition-colors duration-200 cursor-pointer">
-                  {post.title}
-                </h2>
-
-                {/* Excerpt */}
-                <p className="text-[14.5px] text-neutral-500 leading-relaxed tracking-[-0.2px] mb-5">
-                  {post.excerpt}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-0.5 border border-neutral-100 text-[11px] text-neutral-500 bg-neutral-50"
-                      style={{ borderRadius: '4px' }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Read Link */}
-                <button 
-                  onClick={() => alert('상세 글 페이지는 준비 중입니다.')}
-                  className="text-[13.5px] font-semibold text-neutral-800 group-hover:text-[#3b82f6] transition-colors duration-200 flex items-center gap-1 cursor-pointer"
-                >
-                  Read Post <span className="transform group-hover:translate-x-1 transition-transform duration-200">→</span>
-                </button>
-              </article>
-            ))
-          ) : (
-            <div className="text-center py-20 border border-dashed border-neutral-200 rounded-2xl bg-neutral-50/50">
-              <p className="text-[14px] text-neutral-400">등록된 블로그 글이 없습니다.</p>
-            </div>
-          )}
-        </div>
+        {/* Dynamic posts list containing category filters */}
+        <BlogList posts={formattedPosts} />
 
       </div>
     </div>
