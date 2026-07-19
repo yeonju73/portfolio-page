@@ -9,6 +9,12 @@ interface ProjectRole {
   desc: string;
 }
 
+interface TroubleshootingItem {
+  title: string;
+  problem: string;
+  solution: string;
+}
+
 interface ProjectItem {
   title: string;
   subtitle: string;
@@ -20,6 +26,7 @@ interface ProjectItem {
   images: string[];
   roles: ProjectRole[];
   achievements: string[];
+  troubleshooting?: TroubleshootingItem[];
 }
 
 const PROJECTS = projectData as ProjectItem[];
@@ -30,6 +37,8 @@ interface ProjectModalProps {
 }
 
 function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const [openTroubleIndex, setOpenTroubleIndex] = useState<number | null>(null);
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center px-4"
@@ -148,6 +157,75 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
               ))}
             </div>
           </section>
+
+          {project.troubleshooting && project.troubleshooting.length > 0 && (
+            <>
+              <div className="border-t border-neutral-100" />
+              <section>
+                <p className="text-[11px] uppercase tracking-[1.5px] text-neutral-400 font-medium mb-4">트러블슈팅</p>
+                <div className="flex flex-col gap-3">
+                  {project.troubleshooting.map((item, i) => {
+                    const isOpen = openTroubleIndex === i;
+                    return (
+                      <div
+                        key={i}
+                        className="border border-neutral-100 hover:border-neutral-200 bg-white transition-all duration-200 overflow-hidden"
+                        style={{ borderRadius: '6px' }}
+                      >
+                        {/* Accordion Header */}
+                        <button
+                          onClick={() => setOpenTroubleIndex(isOpen ? null : i)}
+                          className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-neutral-50/40 transition-colors gap-4"
+                        >
+                          <span className="text-[13.5px] font-semibold text-neutral-900 tracking-[-0.1px]">
+                            {item.title}
+                          </span>
+                          <span className={`text-neutral-400 transform transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180' : ''}`}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </span>
+                        </button>
+
+                        {/* Accordion Content */}
+                        {isOpen && (
+                          <div className="border-t border-neutral-100 px-5 py-4 bg-neutral-50/10 flex flex-col gap-4">
+                            {/* Problem */}
+                            <div className="flex gap-3 items-start bg-red-50/60 border border-red-100/50 p-4" style={{ borderRadius: '4px' }}>
+                              <span className="text-red-500 mt-0.5 shrink-0 bg-red-100/60 p-1 rounded-full">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                  <circle cx="12" cy="12" r="10" />
+                                  <line x1="12" y1="8" x2="12" y2="12" />
+                                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                                </svg>
+                              </span>
+                              <div>
+                                <p className="text-[12px] font-bold text-red-700 tracking-[-0.1px] mb-1">Issue (문제)</p>
+                                <p className="text-[13px] text-neutral-700 leading-relaxed tracking-[-0.1px]">{item.problem}</p>
+                              </div>
+                            </div>
+
+                            {/* Solution */}
+                            <div className="flex gap-3 items-start bg-emerald-50/60 border border-emerald-100/50 p-4" style={{ borderRadius: '4px' }}>
+                              <span className="text-emerald-600 mt-0.5 shrink-0 bg-emerald-100/60 p-1 rounded-full">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                              </span>
+                              <div>
+                                <p className="text-[12px] font-bold text-emerald-700 tracking-[-0.1px] mb-1">Resolution (해결방법)</p>
+                                <p className="text-[13px] text-neutral-700 leading-relaxed tracking-[-0.1px]">{item.solution}</p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            </>
+          )}
 
           <div className="border-t border-neutral-100" />
 
