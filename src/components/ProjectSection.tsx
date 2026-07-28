@@ -201,7 +201,7 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
                               </span>
                               <div>
                                 <p className="text-[12px] font-bold text-red-700 tracking-[-0.1px] mb-1">Issue (문제)</p>
-                                <p className="text-[13px] text-neutral-700 leading-relaxed tracking-[-0.1px]">{item.problem}</p>
+                                <p className="text-[13px] text-neutral-700 leading-relaxed tracking-[-0.1px] whitespace-pre-wrap">{item.problem}</p>
                               </div>
                             </div>
 
@@ -214,7 +214,7 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
                               </span>
                               <div>
                                 <p className="text-[12px] font-bold text-emerald-700 tracking-[-0.1px] mb-1">Resolution (해결방법)</p>
-                                <p className="text-[13px] text-neutral-700 leading-relaxed tracking-[-0.1px]">{item.solution}</p>
+                                <p className="text-[13px] text-neutral-700 leading-relaxed tracking-[-0.1px] whitespace-pre-wrap">{item.solution}</p>
                               </div>
                             </div>
                           </div>
