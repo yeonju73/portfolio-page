@@ -1,6 +1,7 @@
 interface CertificationItem {
   name: string;
   date: string;
+  score?: string;
 }
 
 interface AwardItem {
@@ -16,9 +17,10 @@ interface ContestItem {
 }
 
 const CERTIFICATIONS: CertificationItem[] = [
+  { name: 'KBI 금융DT 테스트', date: '2026.07.25', score: 'DT-Green' },
+  { name: 'Toeic Speaking', date: '2026.03.14', score: 'IH' },
   { name: '정보처리기사', date: '2025.12.24' },
-  { name: 'SQLD', date: '2025.12.12' },
-  { name: 'Toeic Speaking IH', date: '2026.03.14' }
+  { name: 'SQLD', date: '2025.12.12' }
 ]
 
 const AWARDS: AwardItem[] = [
@@ -74,7 +76,14 @@ export default function CertificationSection() {
                 className="flex items-center justify-between p-5 border border-neutral-100 bg-white hover:border-neutral-300 hover:shadow-[0_8px_20px_rgba(0,0,0,0.02)] transition-all duration-300"
                 style={{ borderRadius: '12px' }}
               >
-                <p className="text-[15px] font-bold text-neutral-900 tracking-[-0.2px]">{cert.name}</p>
+                <p className="text-[15px] font-bold text-neutral-900 tracking-[-0.2px]">
+                  {cert.name}
+                  {cert.score && (
+                    <span className="ml-1.5 text-[13px] font-normal text-neutral-500">
+                      ({cert.score})
+                    </span>
+                  )}
+                </p>
                 <span className="px-2.5 py-1 bg-neutral-50 border border-neutral-100 text-[11px] text-neutral-500 font-medium shrink-0" style={{ borderRadius: '6px' }}>
                   {cert.date}
                 </span>
