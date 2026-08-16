@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'profile',
   description: '박연주의 포트폴리오 프로필 페이지입니다.',
   icons: {
-    icon: '/favicon.svg',
+    icon: '/assets/favicon.png',
   },
 };
 
